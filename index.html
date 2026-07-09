@@ -21,6 +21,7 @@
         
         body {
             font-family: 'Inter', system_ui, sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
         
         .heading-serif {
@@ -152,6 +153,70 @@
         .research-card:hover {
             transform: translateY(-2px);
             box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+        }
+
+        /* Dark Mode Styles */
+        html.dark body {
+            background-color: #1F1710;
+            color: #D1C7B8;
+        }
+
+        html.dark .section-header {
+            color: #D1C7B8;
+        }
+
+        html.dark .family-card {
+            background-color: #2C1810;
+            border-color: #4A3728;
+        }
+
+        html.dark .person-node {
+            background: #2C1810;
+            border-color: #4A3728;
+            color: #D1C7B8;
+        }
+
+        html.dark .tree-controls {
+            background: #2C1810;
+            border-color: #4A3728;
+        }
+
+        html.dark .research-card {
+            background: #2C1810;
+            border-color: #4A3728;
+        }
+
+        html.dark .bg-white {
+            background-color: #2C1810 !important;
+        }
+
+        html.dark .bg-\[\#FDF8F0\] {
+            background-color: #2C1810 !important;
+        }
+
+        html.dark .text-\[\#2C1810\] {
+            color: #D1C7B8 !important;
+        }
+
+        html.dark .text-\[\#6B5B4F\] {
+            color: #A38F7A !important;
+        }
+
+        html.dark .border-\[\#E5DFD3\] {
+            border-color: #4A3728 !important;
+        }
+
+        html.dark .bg-\[\#F5F0E6\] {
+            background-color: #3A2A20 !important;
+        }
+
+        html.dark nav {
+            background-color: #2C1810;
+            border-color: #4A3728;
+        }
+
+        html.dark .heritage-bg {
+            background: linear-gradient(135deg, #2C1810 0%, #1F1710 100%);
         }
     </style>
 </head>
