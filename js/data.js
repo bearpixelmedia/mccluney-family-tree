@@ -131,7 +131,7 @@ const familyData = [
     deathPlace: "Waynesville, North Carolina",
     parents: [3, 6],
     spouses: [13],
-    children: [14],
+    children: [],
     bio: "Robert continued the family tradition of farming and carpentry. He served in World War I and returned home determined to modernize the homestead. A man of few words but deep principle.",
     photo: "https://picsum.photos/id/1006/400/400",
     generation: 3
@@ -187,7 +187,7 @@ const familyData = [
     deathPlace: "Waynesville, North Carolina",
     parents: [],
     spouses: [9],
-    children: [14],
+    children: [],
     bio: "Mattie was a force of nature — a talented cook, gardener, and midwife who delivered many babies in the valley. Her faith and humor held the family together through difficult times.",
     photo: "https://picsum.photos/id/160/400/400",
     generation: 3
@@ -199,7 +199,7 @@ const familyData = [
     death: null,
     birthPlace: "Waynesville, North Carolina",
     deathPlace: "",
-    parents: [9, 13],
+    parents: [16, 17],
     spouses: [],
     children: [],
     bio: "Creator of this digital family tree project. Byron has spent years researching McCluney roots, digitizing old photos, and interviewing elders. He hopes this site will help McCluneys everywhere discover their shared heritage and connect with one another.",
