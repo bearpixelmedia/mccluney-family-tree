@@ -155,51 +155,61 @@
             box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
         }
 
-        /* Dark Mode Styles */
+        /* ========== DARK MODE STYLES (Improved Contrast) ========== */
+        html.dark {
+            color-scheme: dark;
+        }
+
         html.dark body {
             background-color: #1F1710;
-            color: #D1C7B8;
+            color: #E8DFD0;
         }
 
         html.dark .section-header {
-            color: #D1C7B8;
+            color: #E8DFD0;
         }
 
         html.dark .family-card {
-            background-color: #2C1810;
+            background-color: #2C2118;
             border-color: #4A3728;
         }
 
         html.dark .person-node {
-            background: #2C1810;
+            background: #2C2118;
             border-color: #4A3728;
-            color: #D1C7B8;
+            color: #E8DFD0;
         }
 
         html.dark .tree-controls {
-            background: #2C1810;
+            background: #2C2118;
             border-color: #4A3728;
         }
 
         html.dark .research-card {
-            background: #2C1810;
+            background: #2C2118;
             border-color: #4A3728;
         }
 
-        html.dark .bg-white {
-            background-color: #2C1810 !important;
+        html.dark nav {
+            background-color: #2C2118;
+            border-color: #4A3728;
         }
 
+        html.dark .bg-white,
         html.dark .bg-\[\#FDF8F0\] {
-            background-color: #2C1810 !important;
+            background-color: #2C2118 !important;
         }
 
         html.dark .text-\[\#2C1810\] {
-            color: #D1C7B8 !important;
+            color: #E8DFD0 !important;
         }
 
         html.dark .text-\[\#6B5B4F\] {
-            color: #A38F7A !important;
+            color: #B8A68A !important;
+        }
+
+        html.dark .text-\[\#3F2A1E\] {
+            color: #E8DFD0 !important;
         }
 
         html.dark .border-\[\#E5DFD3\] {
@@ -210,13 +220,25 @@
             background-color: #3A2A20 !important;
         }
 
-        html.dark nav {
-            background-color: #2C1810;
-            border-color: #4A3728;
+        html.dark .text-\[\#8B5E3C\] {
+            color: #C5A77D !important;
+        }
+
+        html.dark .hover\:text-\[\#8B5E3C\] {
+            color: #C5A77D !important;
         }
 
         html.dark .heritage-bg {
-            background: linear-gradient(135deg, #2C1810 0%, #1F1710 100%);
+            background: linear-gradient(135deg, #2C2118 0%, #1F1710 100%);
+        }
+
+        html.dark .family-card:hover {
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.3), 0 8px 10px -6px rgb(0 0 0 / 0.3);
+        }
+
+        html.dark .person-node:hover {
+            border-color: #8B5E3C;
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.2);
         }
     </style>
 </head>

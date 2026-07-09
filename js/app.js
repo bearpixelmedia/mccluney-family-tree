@@ -72,7 +72,7 @@ function renderPeopleGrid(filteredData = null) {
   
   data.forEach(person => {
     const card = document.createElement('div');
-    card.className = `family-card bg-white border border-[#E5DFD3] rounded-3xl overflow-hidden cursor-pointer flex flex-col dark:bg-[#2C1810] dark:border-[#4A3728]`;
+    card.className = `family-card bg-white border border-[#E5DFD3] rounded-3xl overflow-hidden cursor-pointer flex flex-col dark:bg-[#2C2118] dark:border-[#4A3728]`;
     card.innerHTML = `
       <div class="relative">
         <img src="${person.photo}" alt="${person.name}" 
@@ -86,19 +86,19 @@ function renderPeopleGrid(filteredData = null) {
       <div class="p-5 flex-1 flex flex-col">
         <div class="flex-1">
           <h3 class="font-semibold text-xl tracking-tight">${person.name}</h3>
-          <p class="text-[#8B5E3C] text-sm mt-0.5 dark:text-[#A38F7A]">${person.birth} — ${person.death || 'Present'}</p>
+          <p class="text-[#8B5E3C] text-sm mt-0.5 dark:text-[#C5A77D]">${person.birth} — ${person.death || 'Present'}</p>
           
-          ${person.birthPlace ? `<p class="text-xs text-[#6B5B4F] mt-2 line-clamp-1 dark:text-[#A38F7A]"><i class="fa-solid fa-map-marker-alt mr-1.5"></i>${person.birthPlace}</p>` : ''}
+          ${person.birthPlace ? `<p class="text-xs text-[#6B5B4F] mt-2 line-clamp-1 dark:text-[#B8A68A]"><i class="fa-solid fa-map-marker-alt mr-1.5"></i>${person.birthPlace}</p>` : ''}
           
-          <p class="text-sm text-[#3F2A1E] mt-3 line-clamp-3 dark:text-[#D1C7B8]">${person.bio ? person.bio.substring(0, 140) + (person.bio.length > 140 ? '...' : '') : ''}</p>
+          <p class="text-sm text-[#3F2A1E] mt-3 line-clamp-3 dark:text-[#E8DFD0]">${person.bio ? person.bio.substring(0, 140) + (person.bio.length > 140 ? '...' : '') : ''}</p>
         </div>
         
         <div class="mt-4 pt-4 border-t border-[#F5F0E6] flex items-center justify-between text-xs dark:border-[#4A3728]">
-          <div class="flex items-center gap-x-1.5 text-[#8B5E3C] dark:text-[#A38F7A]">
+          <div class="flex items-center gap-x-1.5 text-[#8B5E3C] dark:text-[#B8A68A]">
             <i class="fa-solid fa-users"></i>
             <span>${(person.children || []).length} children</span>
           </div>
-          <button class="text-[#4A3728] hover:text-[#8B5E3C] font-medium flex items-center gap-x-1 transition-colors dark:text-[#D1C7B8]">
+          <button class="text-[#4A3728] hover:text-[#8B5E3C] font-medium flex items-center gap-x-1 transition-colors dark:text-[#E8DFD0]">
             View Profile <i class="fa-solid fa-arrow-right text-xs ml-1"></i>
           </button>
         </div>
@@ -187,7 +187,7 @@ function renderFamilyConnections(person) {
       }
     });
   } else {
-    parentsContainer.innerHTML = '<p class="text-xs text-[#8B5E3C]/70 italic dark:text-[#A38F7A]">Unknown / Not documented</p>';
+    parentsContainer.innerHTML = '<p class="text-xs text-[#8B5E3C]/70 italic dark:text-[#B8A68A]">Unknown / Not documented</p>';
   }
 
   // Spouses
@@ -202,7 +202,7 @@ function renderFamilyConnections(person) {
       }
     });
   } else {
-    spousesContainer.innerHTML = '<p class="text-xs text-[#8B5E3C]/70 italic dark:text-[#A38F7A]">None documented</p>';
+    spousesContainer.innerHTML = '<p class="text-xs text-[#8B5E3C]/70 italic dark:text-[#B8A68A]">None documented</p>';
   }
 
   // Children
@@ -217,7 +217,7 @@ function renderFamilyConnections(person) {
       }
     });
   } else {
-    childrenContainer.innerHTML = '<p class="text-xs text-[#8B5E3C]/70 italic dark:text-[#A38F7A]">No children documented</p>';
+    childrenContainer.innerHTML = '<p class="text-xs text-[#8B5E3C]/70 italic dark:text-[#B8A68A]">No children documented</p>';
   }
 }
 
@@ -227,8 +227,8 @@ function createRelationshipElement(person, relationType) {
   div.innerHTML = `
     <img src="${person.photo}" alt="${person.name}" class="w-9 h-9 rounded-xl object-cover border border-[#D1C7B8]">
     <div class="flex-1 min-w-0">
-      <div class="font-medium text-sm truncate dark:text-[#D1C7B8]">${person.name}</div>
-      <div class="text-[10px] text-[#6B5B4F] dark:text-[#A38F7A]">${person.birth} — ${person.death || 'Present'}</div>
+      <div class="font-medium text-sm truncate dark:text-[#E8DFD0]">${person.name}</div>
+      <div class="text-[10px] text-[#6B5B4F] dark:text-[#B8A68A]">${person.birth} — ${person.death || 'Present'}</div>
     </div>
   `;
   
@@ -284,16 +284,16 @@ function createTreeNode(person, isRoot = false) {
   
   // Person node card
   const node = document.createElement('div');
-  node.className = `person-node ${isRoot ? 'ring-2 ring-[#8B5E3C] ring-offset-2' : ''} dark:bg-[#2C1810] dark:border-[#4A3728] dark:text-[#D1C7B8]`;
+  node.className = `person-node ${isRoot ? 'ring-2 ring-[#8B5E3C] ring-offset-2' : ''} dark:bg-[#2C2118] dark:border-[#4A3728] dark:text-[#E8DFD0]`;
   node.innerHTML = `
     <img src="${person.photo}" alt="${person.name}">
     <div class="node-info flex-1">
-      <div class="name dark:text-[#D1C7B8]">${person.name}</div>
-      <div class="years dark:text-[#A38F7A]">${person.birth} — ${person.death || 'Present'}</div>
+      <div class="name dark:text-[#E8DFD0]">${person.name}</div>
+      <div class="years dark:text-[#B8A68A]">${person.birth} — ${person.death || 'Present'}</div>
     </div>
     
     ${(person.children && person.children.length > 0) ? `
-      <button class="ml-auto w-6 h-6 flex items-center justify-center text-[#8B5E3C] hover:bg-[#F5F0E6] rounded-full transition-colors toggle-btn dark:text-[#A38F7A] dark:hover:bg-[#4A3728]" title="Toggle children">
+      <button class="ml-auto w-6 h-6 flex items-center justify-center text-[#8B5E3C] hover:bg-[#F5F0E6] rounded-full transition-colors toggle-btn dark:text-[#B8A68A] dark:hover:bg-[#4A3728]" title="Toggle children">
         <i class="fa-solid fa-chevron-down text-xs"></i>
       </button>
     ` : ''}
