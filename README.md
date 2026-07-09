@@ -1,96 +1,100 @@
 # mccluney-family-tree
 
-A beautiful, interactive website project to preserve and explore the McCluney family heritage.
+A beautiful, interactive website project to preserve and explore the McCluney family heritage, with active tools to research and discover more ancestors from public sources.
 
 > "A project put in place by Byron McCluney to help other McCluney's find their heritage."
 
 ## 🌳 Features
 
-- **Elegant & Responsive Design**: Warm, heritage-inspired theme that works beautifully on desktop, tablet, and mobile.
-- **Powerful Search & Browse**: Instantly search the family directory by name, birthplace, or any detail. Filter and sort results.
-- **Rich Person Profiles**: Click any card to open a detailed modal with biography, photos, and interactive family connections (parents, spouse, children — all clickable!).
-- **Interactive Visual Family Tree**: A clean, expandable top-down tree visualization built with pure HTML/CSS/JS. Click any person to open their full profile.
-- **Deep Linking**: Share direct links to specific family members (e.g. `#person-14`).
-- **Easy to Extend**: All data lives in a simple JavaScript file. No database or backend required.
-- **Zero Dependencies to Build**: Open `index.html` directly in any browser. Perfect for GitHub Pages.
+- **Elegant & Responsive Design**: Warm, heritage-inspired theme.
+- **Interactive Family Tree + Searchable Directory**: Clickable profiles, expandable branches, filters.
+- **Rich Profiles**: Bios, family connections, sources, and photos.
+- **Research Hub** (new!): Pre-built links to WikiTree, Find A Grave, FamilySearch. Quick search generator that creates links for any ancestor. Local Python crawler script to automatically discover public profiles.
+- **Easy to Extend**: All data in `js/data.js`. Add new verified people and the tree updates automatically.
+- **Zero Build Tools**: Open `index.html` directly or deploy via GitHub Pages.
 
 ## 🚀 Getting Started
 
 ### View Locally
 1. Clone or download this repository
 2. Open `index.html` in your web browser
-   - For best results (if adding images later), serve it locally:
-     ```bash
-     python -m http.server 8000
-     # or npx serve
-     ```
-3. Navigate to http://localhost:8000
+3. For the Research Hub crawler: See instructions below
 
-### Deploy with GitHub Pages (Recommended)
-1. Go to your repository **Settings** → **Pages**
-2. Under "Build and deployment", set **Source** to "Deploy from a branch"
-3. Select branch `main` and folder `/ (root)`
-4. Save — your site will be live at `https://bearpixelmedia.github.io/mccluney-family-tree/`
+### Deploy with GitHub Pages
+1. Repo Settings → Pages
+2. Source: Deploy from `main` branch, root folder
+3. Your site: https://bearpixelmedia.github.io/mccluney-family-tree/
+
+## 🔍 Research Hub & Crawler
+
+The project now actively helps you find more McCluney information:
+
+### In the Website
+- Go to the **Research Hub** section
+- Use the Quick Search Generator: Type any name → instant links to WikiTree, Find A Grave, FamilySearch, Google
+- Click pre-built links for key ancestors (e.g., William McCluney 1772 immigrant)
+
+### Local Python Crawler (scripts/mccluney_crawler.py)
+A starter script that uses public APIs (starting with WikiTree) to search for McCluney profiles and extract structured data.
+
+**How to run:**
+```bash
+# Clone the repo if you haven't
+git clone https://github.com/bearpixelmedia/mccluney-family-tree.git
+cd mccluney-family-tree
+
+# Install dependencies (one time)
+pip install requests beautifulsoup4
+
+# Run the crawler
+cd scripts
+python mccluney_crawler.py --search "McCluney" --limit 30
+
+# Output: findings.json (review and merge useful entries into js/data.js)
+```
+
+**What it does:**
+- Searches WikiTree for McCluney surname
+- Fetches profile details (birth, death, parents, etc.)
+- Outputs clean JSON you can review and import
+- Easy to extend for Find A Grave scraping or other public sources
+
+**Tips:**
+- Always verify data from the crawler with primary sources
+- Run periodically as new profiles are added to WikiTree
+- Customize the script for specific ancestors or locations (e.g., "Chester County SC")
+
+**Future expansions:** Add more sources, scheduled GitHub Actions runs, or merge script.
 
 ## 📝 How to Add Real Family Data
 
-All family information is stored in **`js/data.js`** as a simple array of objects. This makes it trivial to edit, version control, and contribute via Pull Requests.
+Edit `js/data.js` following the schema. The tree and modals update automatically.
 
-### Person Schema
-```js
-{
-  id: 14,                           // Unique integer
-  name: "Byron McCluney",
-  birth: "1978",                    // Year or full date string
-  death: null,                      // null for living, or year/date
-  birthPlace: "Waynesville, NC",
-  deathPlace: "",
-  parents: [13],                    // Array of parent IDs
-  spouses: [],                      // Array of spouse IDs
-  children: [],                     // Array of children IDs
-  bio: "Full or short biography...",
-  photo: "https://picsum.photos/id/1005/400/400",  // Placeholder or path to /images/yourphoto.jpg
-  generation: 5                     // Optional: for badges/filters
-}
-```
-
-### Steps to Add Members
-1. Open `js/data.js`
-2. Add a new object to the `familyData` array following the schema above.
-3. Update `parents`, `spouses`, and `children` arrays on related people so relationships stay consistent.
-4. (Optional) Add real photos to an `images/` folder and update the `photo` paths.
-5. Commit and push (or open a Pull Request).
-
-**Tip**: Start with the oldest known ancestor as the tree root for the visual tree.
+See the Research Hub for discovering new people to add.
 
 ## 🛠 Tech Stack
-- **Frontend**: Vanilla HTML5 + CSS3 + JavaScript (ES2020+)
-- **Styling**: Tailwind CSS (loaded via CDN — no build step)
-- **Icons**: Font Awesome 6 (CDN)
-- **No backend, no frameworks, no compilation** — pure static site
+- Vanilla HTML/CSS/JS + Tailwind (CDN)
+- Python crawler for research automation
+- GitHub for version control and Pages hosting
 
-## 🌟 Future Roadmap Ideas
-- [ ] GEDCOM file import / export
-- [ ] Interactive map of family migrations (Leaflet)
+## 🌟 Future Roadmap
+- [x] Research Hub with links + search generator
+- [x] Starter crawler script (WikiTree API)
+- [ ] Full GEDCOM import/export
+- [ ] Migration map visualization
 - [ ] Timeline view
-- [ ] Private branches or user-submitted stories with moderation
-- [ ] PDF export of individual profiles or full tree
-- [ ] Multi-generational photo galleries
-- [ ] Dark mode polish & accessibility improvements
+- [ ] More sources in crawler (Find A Grave, FamilySearch records)
+- [ ] Scheduled auto-discovery (GitHub Actions)
+
+## ⚖️ Privacy & Verification
+Only public or user-provided data. Always verify with primary records. Living relatives have minimal details.
 
 ## 🤝 Contributing
+Pull requests welcome! Especially new verified ancestors, photos, stories, or improvements to the crawler.
 
-This is a living family project. Contributions from McCluney descendants are warmly welcomed!
-
-- Add verified ancestors, descendants, photos, or stories
-- Fix bugs or improve the UI/UX
-- Suggest new features
-
-Please be mindful of the privacy of living relatives when adding information.
-
-## 📜 License
-Open source for the McCluney family community. Feel free to fork and adapt for your own family tree.
+## 📋 License
+Open for the McCluney family community.
 
 ---
 
-Built with ❤️ for the McCluney family by Byron McCluney & Grok.
+Built with ❤️ for the McCluney family by Byron Patrick McCluney & Grok.

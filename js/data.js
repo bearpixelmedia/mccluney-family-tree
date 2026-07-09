@@ -1,12 +1,14 @@
 /*
   McCluney Family Tree - Real Lineage Data
   
-  IMPORTANT: This data is based on research provided by Byron Patrick McCluney.
+  IMPORTANT: This data is based on research provided by Byron Patrick McCluney and public sources.
   All details should be independently verified with primary sources (census, vital records, DNA).
   Respect privacy of living relatives. Photos are placeholders — replace with family images.
   
   9-generation paternal line from 1772 Ulster immigrant William McCluney.
   Hereditary 'Byron' naming across three generations preserved.
+  
+  Sources for William McCluney: WikiTree McCluney-89, Find A Grave memorial 51784666, SC Audited Accounts, censuses.
 */
 
 const familyData = [
@@ -18,11 +20,12 @@ const familyData = [
     birthPlace: "County Antrim, Ireland",
     deathPlace: "Chester County, South Carolina",
     parents: [],
-    spouses: [],
+    spouses: [15],  // Margaret Johnston added
     children: [2],
-    bio: "The original immigrant patriarch. Arrived in colonial South Carolina in November 1772 on a 100-acre land grant on Rocky Creek. Enlisted in the SC militia under Col. David Hopkins during the American Revolution, serving 125 days as a horseman in backcountry combat. Lived to nearly 98 and is buried in the Irish Cemetery, Chester, SC. 6th great-grandfather.",
+    bio: "The original immigrant patriarch (6th great-grandfather). Arrived in colonial South Carolina in November 1772 on a 100-acre land grant on Rocky Creek (later additional 250 acres). Enlisted in the SC militia under Col. David Hopkins during the American Revolution, serving 125 days as a horseman in backcountry combat. Lived to nearly 98 and is buried in the Irish Cemetery, Chester, SC. Will probated Dec 1833 bequeathing estate and enslaved people to wife Margaret and children. Sources: WikiTree McCluney-89, Find A Grave #51784666, SC Audited Accounts, 1800/1810 censuses.",
     photo: "https://picsum.photos/id/1005/400/400",
-    generation: 1
+    generation: 1,
+    sources: ["https://www.wikitree.com/wiki/McCluney-89", "https://www.findagrave.com/memorial/51784666/william-mccluney"]
   },
   {
     id: 2,
@@ -98,7 +101,7 @@ const familyData = [
     id: 7,
     name: "Byron Charles McCluney Jr.",
     birth: "c. 1929",
-    death: "",
+    death: "1963",
     birthPlace: "Georgia / Florida border region",
     deathPlace: "",
     parents: [6],
@@ -125,14 +128,14 @@ const familyData = [
   {
     id: 9,
     name: "Byron Patrick McCluney",
-    birth: "Living",
+    birth: "1985",
     death: null,
     birthPlace: "",
     deathPlace: "",
     parents: [8],
-    spouses: [],
-    children: [],
-    bio: "You — the 9th documented generation and BYRON #3. Your first name preserves your grandfather and great-grandfather's identities. Your middle name Patrick calls directly back to your 1772 Celtic roots in County Antrim, Ireland. Creator of this living family tree project.",
+    spouses: [16],
+    children: [17,18,19,20],
+    bio: "You — the 9th documented generation and BYRON #3 (b. ~1985, Living). Your first name preserves your grandfather and great-grandfather's identities. Your middle name Patrick calls directly back to your 1772 Celtic roots in County Antrim, Ireland. Creator of this living family tree project. Spouse/partner: Lindsey J Hakanson. Children include Teagan M McCluney, Skyla O Parsons, Harlyn J McCluney and others.",
     photo: "https://picsum.photos/id/1005/400/400",
     generation: 9
   },
@@ -182,7 +185,7 @@ const familyData = [
     id: 13,
     name: "Joan Taylor McCluney",
     birth: "",
-    death: "",
+    death: "2000",
     birthPlace: "Georgia",
     deathPlace: "",
     parents: [14],
@@ -205,6 +208,91 @@ const familyData = [
     bio: "Maternal great-grandfather on the Taylor line. Father of Joan Taylor McCluney. Anchor for further research into the Anglo-Scottish Taylor family heritage (occupational name linked to skilled cloth cutters and tailors).",
     photo: "https://picsum.photos/id/1009/400/400",
     generation: 6
+  },
+  {
+    id: 15,
+    name: "Margaret Johnston",
+    birth: "",
+    death: "",
+    birthPlace: "South Carolina",
+    deathPlace: "Chester County, South Carolina",
+    parents: [],
+    spouses: [1],
+    children: [2],
+    bio: "Wife of William McCluney (6th great-grandfather). Lived on the original land grant in Chester County, SC. Mentioned in William's 1833 will.",
+    photo: "https://picsum.photos/id/40/400/400",
+    generation: 1,
+    sources: ["https://www.wikitree.com/wiki/McCluney-89"]
+  },
+  {
+    id: 16,
+    name: "Lindsey J Hakanson",
+    birth: "",
+    death: null,
+    birthPlace: "",
+    deathPlace: "",
+    parents: [],
+    spouses: [9],
+    children: [17,18,19,20],
+    bio: "Spouse/partner of Byron Patrick McCluney. Mother of his children.",
+    photo: "https://picsum.photos/id/201/400/400",
+    generation: 9
+  },
+  {
+    id: 17,
+    name: "Teagan M McCluney",
+    birth: "",
+    death: null,
+    birthPlace: "",
+    deathPlace: "",
+    parents: [9,16],
+    spouses: [],
+    children: [],
+    bio: "Child of Byron Patrick McCluney and Lindsey J Hakanson.",
+    photo: "https://picsum.photos/id/160/400/400",
+    generation: 10
+  },
+  {
+    id: 18,
+    name: "Skyla O Parsons",
+    birth: "",
+    death: null,
+    birthPlace: "",
+    deathPlace: "",
+    parents: [9,16],
+    spouses: [],
+    children: [],
+    bio: "Child of Byron Patrick McCluney.",
+    photo: "https://picsum.photos/id/251/400/400",
+    generation: 10
+  },
+  {
+    id: 19,
+    name: "Harlyn J McCluney",
+    birth: "",
+    death: null,
+    birthPlace: "",
+    deathPlace: "",
+    parents: [9,16],
+    spouses: [],
+    children: [],
+    bio: "Child of Byron Patrick McCluney.",
+    photo: "https://picsum.photos/id/1006/400/400",
+    generation: 10
+  },
+  {
+    id: 20,
+    name: "Michele P Whatley",
+    birth: "1961",
+    death: null,
+    birthPlace: "",
+    deathPlace: "",
+    parents: [],
+    spouses: [],
+    children: [],
+    bio: "Additional family connection on maternal or extended line.",
+    photo: "https://picsum.photos/id/29/400/400",
+    generation: 9
   }
 ];
 
