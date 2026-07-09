@@ -149,7 +149,7 @@ function openModal(personId) {
   
   // Photo
   const photoContainer = document.getElementById('modal-photo');
-  photoContainer.innerHTML = `<img src="${person.photo}" alt="${person.name}" class="w-full h-full object-cover">`;
+  photoContainer.innerHTML = `<img src="${person.photo}" alt="${person.name}" class="w-full h-full object-cover'>`;
   
   // Family connections
   renderFamilyConnections(person);

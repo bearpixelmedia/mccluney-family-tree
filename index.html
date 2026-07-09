@@ -155,7 +155,7 @@
             box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
         }
 
-        /* ========== DARK MODE - HIGH CONTRAST ========== */
+        /* ========== DARK MODE - HIGH CONTRAST + TREE FIXES ========== */
         html.dark {
             color-scheme: dark;
         }
@@ -235,6 +235,18 @@
         html.dark .person-node:hover {
             border-color: #8B5E3C;
             box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.3);
+        }
+
+        /* Dark mode tree connector fixes (high visibility) */
+        html.dark .family-tree li {
+            border-left-color: #6B5B4F;
+        }
+        html.dark .family-tree li::before {
+            background: #6B5B4F;
+        }
+        html.dark .family-tree .person-node {
+            background: #2C2118;
+            border-color: #4A3728;
         }
 
         /* Extra high contrast for links and interactive elements */
