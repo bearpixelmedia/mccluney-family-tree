@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>McCluney Family Tree • Preserving Our Heritage</title>
+    <meta name="description" content="Explore the McCluney family heritage. An interactive family tree website created by Byron McCluney.">
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;500;600&amp;family=Source+Sans+3:wght@400;500;600&amp;display=swap');
+        
+        :root {
+            --primary: #4A3728;
+            --accent: #8B5E3C;
+            --cream: #FDF8F0;
+            --dark: #2C1810;
+        }
+        
+        body {
+            font-family: 'Inter', system_ui, sans-serif;
+        }
+        
+        .heading-serif {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+        }
+
+        .heritage-bg {
+            background: linear-gradient(135deg, #4A3728 0%, #2C1810 100%);
+        }
+
+        .section-header {
+            font-size: 2.25rem;
+            line-height: 2.5rem;
+            font-weight: 700;
+            color: #2C1810;
+            letter-spacing: -0.04em;
+        }
+
+        .family-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .family-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+
+        .person-modal {
+            animation: modalPop 0.2s ease-out forwards;
+        }
+
+        @keyframes modalPop {
+            from { opacity: 0; transform: scale(0.95) translateY(10px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        /* Beautiful CSS Family Tree Styles */
+        .family-tree {
+            font-size: 0.95rem;
+        }
+        .family-tree ul {
+            list-style: none;
+            padding-left: 2rem;
+            position: relative;
+        }
+        .family-tree > ul {
+            padding-left: 0;
+        }
+        .family-tree li {
+            position: relative;
+            padding: 0.5rem 0 0.5rem 1.5rem;
+            border-left: 2px solid #D1C7B8;
+        }
+        .family-tree li:last-child {
+            border-left: none;
+        }
+        .family-tree li::before {
+            content: '';
+            position: absolute;
+            left: -2px;
+            top: 1.35rem;
+            width: 1rem;
+            height: 2px;
+            background: #D1C7B8;
+        }
+        .family-tree .person-node {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: white;
+            border: 1px solid #E5DFD3;
+            border-radius: 9999px;
+            padding: 0.5rem 1rem 0.5rem 0.5rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05);
+            transition: all 0.2s ease;
+            cursor: pointer;
+            max-width: 320px;
+        }
+        .family-tree .person-node:hover {
+            border-color: #8B5E3C;
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+            transform: translateX(4px);
+        }
+        .family-tree .person-node img {
+            width: 42px;
+            height: 42px;
+            border-radius: 9999px;
+            object-fit: cover;
+            border: 2px solid #E5DFD3;
+            flex-shrink: 0;
+        }
+        .family-tree .node-info {
+            line-height: 1.1;
+        }
+        .family-tree .node-info .name {
+            font-weight: 600;
+            color: #2C1810;
+            font-size: 0.95rem;
+        }
+        .family-tree .node-info .years {
+            font-size: 0.75rem;
+            color: #6B5B4F;
+        }
+
+        .tree-controls {
+            background: #FDF8F0;
+            border: 1px solid #E5DFD3;
+        }
+
+        .modal {
+            scrollbar-width: thin;
+        }
+
+        .relationship-pill {
+            background: #F5F0E6;
+            color: #4A3728;
+            font-size: 0.75rem;
+            padding: 0.125rem 0.625rem;
+            border-radius: 9999px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+    </style>
+</head>
+<body class="bg-[#FDF8F0] text-[#2C1810]">
+    <!-- Navbar -->
+    <nav class="bg-white border-b border-[#E5DFD3] sticky top-0 z-50">
+        <div class="max-w-screen-xl mx-auto px-6">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center gap-x-3">
+                    <div class="w-9 h-9 bg-[#4A3728] rounded-full flex items-center justify-center">
+                        <i class="fa-solid fa-tree text-white text-xl"></i>
+                    </div>
+                    <div>
+                        <span class="font-semibold text-xl tracking-tight">McCluney</span>
+                        <span class="text-[#8B5E3C] font-medium">Family Tree</span>
+                    </div>
+                </div>
+                
+                <div class="hidden md:flex items-center gap-x-8 text-sm font-medium">
+                    <a href="#about" class="hover:text-[#8B5E3C] transition-colors">About</a>
+                    <a href="#tree" class="hover:text-[#8B5E3C] transition-colors">Family Tree</a>
+                    <a href="#people" class="hover:text-[#8B5E3C] transition-colors">Browse People</a>
+                    <a href="#contribute" class="hover:text-[#8B5E3C] transition-colors">Contribute</a>
+                </div>
+
+                <div class="flex items-center gap-x-3">
+                    <button onclick="document.getElementById('people').scrollIntoView({ behavior: 'smooth' })" 
+                            class="px-4 py-2 text-sm font-medium bg-[#4A3728] hover:bg-[#3A2A20] text-white rounded-full transition-colors flex items-center gap-x-2">
+                        <i class="fa-solid fa-search"></i>
+                        <span class="hidden sm:inline">Explore</span>
+                    </button>
+                    
+                    <!-- Dark mode toggle -->
+                    <button id="dark-toggle" onclick="toggleDarkMode()"
+                            class="w-9 h-9 flex items-center justify-center text-[#6B5B4F] hover:text-[#4A3728] hover:bg-[#F5F0E6] rounded-full transition-colors">
+                        <i class="fa-solid fa-moon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="heritage-bg text-white">
+        <div class="max-w-screen-xl mx-auto px-6 pt-16 pb-20">
+            <div class="max-w-3xl">
+                <div class="inline-flex items-center gap-x-2 bg-white/10 backdrop-blur-md px-4 py-1.5 rounded-full mb-6">
+                    <div class="w-2 h-2 bg-[#D4AF37] rounded-full animate-pulse"></div>
+                    <span class="text-sm font-medium tracking-widest">EST. 1820 • NORTH CAROLINA &amp; SCOTLAND</span>
+                </div>
+                
+                <h1 class="text-6xl md:text-7xl leading-none tracking-tighter font-bold heading-serif mb-4">
+                    The McCluney<br>Family Tree
+                </h1>
+                <p class="max-w-md text-xl text-white/90 mb-8">
+                    Preserving our heritage, connecting generations, and honoring the stories of those who came before us.
+                </p>
+                
+                <div class="flex flex-wrap gap-4">
+                    <button onclick="document.getElementById('tree').scrollIntoView({ behavior: 'smooth' })" 
+                            class="px-8 py-3.5 bg-white text-[#4A3728] hover:bg-[#F5F0E6] font-semibold rounded-full transition-all flex items-center gap-x-3 shadow-lg shadow-black/20">
+                        <i class="fa-solid fa-project-diagram"></i>
+                        <span>Explore the Tree</span>
+                    </button>
+                    <button onclick="document.getElementById('people').scrollIntoView({ behavior: 'smooth' })" 
+                            class="px-8 py-3.5 border border-white/40 hover:bg-white/10 font-medium rounded-full transition-all flex items-center gap-x-3">
+                        <span>Browse All Members</span>
+                    </button>
+                </div>
+                
+                <div class="mt-8 flex items-center gap-x-4 text-sm text-white/70">
+                    <div class="flex -space-x-2">
+                        <div class="w-7 h-7 rounded-full border border-white/30 overflow-hidden"><img src="https://picsum.photos/id/1005/28/28" class="w-full h-full object-cover"></div>
+                        <div class="w-7 h-7 rounded-full border border-white/30 overflow-hidden"><img src="https://picsum.photos/id/1011/28/28" class="w-full h-full object-cover"></div>
+                        <div class="w-7 h-7 rounded-full border border-white/30 overflow-hidden"><img src="https://picsum.photos/id/160/28/28" class="w-full h-full object-cover"></div>
+                    </div>
+                    <span>12 family members documented • Growing</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section id="about" class="max-w-screen-xl mx-auto px-6 py-16 border-b border-[#E5DFD3]">
+        <div class="grid md:grid-cols-12 gap-x-12 items-center">
+            <div class="md:col-span-7">
+                <div class="uppercase tracking-[3px] text-xs font-semibold text-[#8B5E3C] mb-3">OUR STORY</div>
+                <h2 class="section-header mb-6">Rooted in the Blue Ridge Mountains</h2>
+                
+                <div class="prose prose-stone max-w-none text-[#3F2A1E]">
+                    <p class="text-lg">The McCluney family story begins in the early 19th century when Alexander McCluney left Scotland for a new life in the mountains of North Carolina. What started as a single homestead has grown into a rich tapestry of generations, each adding their own chapter to our shared legacy.</p>
+                    
+                    <p>This digital family tree was created by <strong>Byron McCluney</strong> as a living resource for all McCluneys — whether you're researching your lineage, reconnecting with cousins, or simply curious about where we come from.</p>
+                </div>
+            </div>
+            
+            <div class="md:col-span-5 mt-10 md:mt-0">
+                <div class="bg-white p-8 rounded-3xl border border-[#E5DFD3]">
+                    <div class="flex items-start gap-4">
+                        <i class="fa-solid fa-globe text-3xl text-[#8B5E3C] mt-1"></i>
+                        <div>
+                            <div class="font-semibold">Open to All McCluneys</div>
+                            <p class="text-sm text-[#6B5B4F] mt-1">This project is designed to grow through contributions from family members everywhere. Your stories, photos, and research make it stronger.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Family Tree Section -->
+    <section id="tree" class="max-w-screen-xl mx-auto px-6 py-16">
+        <div class="flex flex-col md:flex-row md:items-end md:justify-between mb-8">
+            <div>
+                <div class="uppercase tracking-[3px] text-xs font-semibold text-[#8B5E3C] mb-2">VISUAL EXPLORER</div>
+                <h2 class="section-header">Interactive Family Tree</h2>
+                <p class="text-[#6B5B4F] mt-2 max-w-md">Click any person to view their full profile. Expand branches to explore descendants.</p>
+            </div>
+            
+            <div class="mt-4 md:mt-0 flex items-center gap-3">
+                <div class="tree-controls px-4 py-2 rounded-2xl flex items-center gap-2 text-sm">
+                    <button onclick="resetTree()" class="flex items-center gap-x-2 px-3 py-1.5 hover:bg-white rounded-xl transition-colors">
+                        <i class="fa-solid fa-undo text-xs"></i>
+                        <span class="font-medium">Reset View</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tree Container -->
+        <div class="bg-white border border-[#E5DFD3] rounded-3xl p-8 md:p-10 overflow-x-auto shadow-inner">
+            <div id="family-tree-container" class="family-tree min-w-[720px]">
+                <!-- Populated by JavaScript -->
+            </div>
+        </div>
+        <p class="text-center text-xs text-[#8B5E3C] mt-4">Sample data shown. Replace with your verified family history in <code class="font-mono bg-[#F5F0E6] px-1.5 py-px rounded">js/data.js</code></p>
+    </section>
+
+    <!-- People Directory Section -->
+    <section id="people" class="bg-white border-y border-[#E5DFD3] py-16">
+        <div class="max-w-screen-xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-y-4">
+                <div>
+                    <div class="uppercase tracking-[3px] text-xs font-semibold text-[#8B5E3C] mb-2">DIRECTORY</div>
+                    <h2 class="section-header">Browse the Family</h2>
+                </div>
+                
+                <div class="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+                    <!-- Search -->
+                    <div class="relative flex-1 md:w-80">
+                        <i class="fa-solid fa-search absolute left-4 top-3.5 text-[#8B5E3C]"></i>
+                        <input id="search-input" 
+                               type="text" 
+                               placeholder="Search name, place, or bio..." 
+                               onkeyup="filterPeople()"
+                               class="w-full pl-11 pr-4 py-3 bg-[#FDF8F0] border border-[#E5DFD3] focus:border-[#8B5E3C] rounded-2xl text-sm placeholder:text-[#8B5E3C]/60 outline-none">
+                    </div>
+                    
+                    <!-- Sort -->
+                    <select id="sort-select" onchange="filterPeople()" 
+                            class="px-4 py-3 bg-[#FDF8F0] border border-[#E5DFD3] focus:border-[#8B5E3C] rounded-2xl text-sm outline-none">
+                        <option value="name-asc">Sort: Name A–Z</option>
+                        <option value="birth-desc">Sort: Oldest First</option>
+                        <option value="birth-asc">Sort: Youngest First</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- People Grid -->
+            <div id="people-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <!-- Populated dynamically by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Contribute Section -->
+    <section id="contribute" class="max-w-screen-xl mx-auto px-6 py-16">
+        <div class="max-w-2xl mx-auto text-center">
+            <i class="fa-solid fa-hands-helping text-4xl text-[#8B5E3C] mb-4"></i>
+            <h2 class="section-header mb-4">Help Grow Our Family Tree</h2>
+            <p class="text-[#6B5B4F] text-lg mb-8">Do you have photos, stories, documents, or ancestors to add? This project thrives on contributions from McCluney descendants everywhere.</p>
+            
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="https://github.com/bearpixelmedia/mccluney-family-tree" target="_blank"
+                   class="inline-flex items-center justify-center gap-x-3 px-7 py-3.5 bg-[#4A3728] hover:bg-[#3A2A20] text-white font-semibold rounded-2xl transition-colors">
+                    <i class="fa-brands fa-github"></i>
+                    <span>Contribute on GitHub</span>
+                </a>
+                <button onclick="showContributeModal()" 
+                        class="inline-flex items-center justify-center gap-x-3 px-7 py-3.5 border border-[#4A3728] hover:bg-[#F5F0E6] font-semibold rounded-2xl transition-colors">
+                    <span>How to Submit Info</span>
+                </button>
+            </div>
+            
+            <p class="mt-8 text-xs text-[#8B5E3C]">All contributions are reviewed for accuracy and privacy. Thank you for helping preserve our shared history.</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#2C1810] text-[#D1C7B8] py-12">
+        <div class="max-w-screen-xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-y-6 text-sm">
+                <div>
+                    &copy; 2026 McCluney Family Tree Project. Built with care for future generations.
+                </div>
+                <div class="flex items-center gap-x-6">
+                    <a href="#" class="hover:text-white transition-colors">Privacy</a>
+                    <a href="https://github.com/bearpixelmedia/mccluney-family-tree" class="hover:text-white transition-colors">GitHub</a>
+                    <span class="text-[#8B5E3C]">•</span>
+                    <span>Made for the McCluney family</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Person Detail Modal -->
+    <div id="person-modal" onclick="if (event.target.id === 'person-modal') closeModal()" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
+        <div onclick="event.stopImmediatePropagation()" 
+             class="person-modal bg-white w-full max-w-3xl rounded-3xl shadow-2xl overflow-hidden max-h-[92vh] flex flex-col">
+            
+            <!-- Modal Header -->
+            <div class="px-8 pt-8 pb-6 flex items-start justify-between border-b border-[#E5DFD3]">
+                <div class="flex items-center gap-x-5">
+                    <div id="modal-photo" class="w-20 h-20 rounded-2xl overflow-hidden border border-[#E5DFD3] flex-shrink-0 shadow-inner">
+                        <!-- Photo set by JS -->
+                    </div>
+                    <div>
+                        <div id="modal-name" class="text-3xl font-semibold tracking-tight heading-serif"></div>
+                        <div id="modal-dates" class="text-[#8B5E3C] font-medium mt-0.5"></div>
+                        <div id="modal-places" class="text-sm text-[#6B5B4F] mt-1"></div>
+                    </div>
+                </div>
+                <button onclick="closeModal()" class="text-[#8B5E3C] hover:text-[#4A3728] p-2 -mr-2">
+                    <i class="fa-solid fa-times text-2xl"></i>
+                </button>
+            </div>
+
+            <div class="p-8 overflow-y-auto flex-1 modal">
+                <!-- Bio -->
+                <div class="mb-8">
+                    <div class="uppercase text-xs tracking-widest font-semibold text-[#8B5E3C] mb-2">BIOGRAPHY</div>
+                    <div id="modal-bio" class="text-[#3F2A1E] leading-relaxed"></div>
+                </div>
+
+                <!-- Family Relationships -->
+                <div>
+                    <div class="uppercase text-xs tracking-widest font-semibold text-[#8B5E3C] mb-4">FAMILY CONNECTIONS</div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <!-- Parents -->
+                        <div>
+                            <div class="flex items-center gap-x-2 mb-3">
+                                <i class="fa-solid fa-user-friends text-[#8B5E3C]"></i>
+                                <span class="font-semibold text-sm">Parents</span>
+                            </div>
+                            <div id="modal-parents" class="space-y-2">
+                                <!-- Populated by JS -->
+                            </div>
+                        </div>
+
+                        <!-- Spouse -->
+                        <div>
+                            <div class="flex items-center gap-x-2 mb-3">
+                                <i class="fa-solid fa-heart text-[#8B5E3C]"></i>
+                                <span class="font-semibold text-sm">Spouse(s)</span>
+                            </div>
+                            <div id="modal-spouses" class="space-y-2">
+                                <!-- Populated by JS -->
+                            </div>
+                        </div>
+
+                        <!-- Children -->
+                        <div>
+                            <div class="flex items-center gap-x-2 mb-3">
+                                <i class="fa-solid fa-child text-[#8B5E3C]"></i>
+                                <span class="font-semibold text-sm">Children</span>
+                            </div>
+                            <div id="modal-children" class="space-y-2">
+                                <!-- Populated by JS -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="px-8 py-5 bg-[#FDF8F0] border-t border-[#E5DFD3] flex items-center justify-between text-sm">
+                <div class="flex items-center gap-x-2 text-[#6B5B4F]">
+                    <i class="fa-solid fa-link"></i>
+                    <button onclick="copyPersonLink()" class="hover:text-[#4A3728] transition-colors">Copy link to this person</button>
+                </div>
+                <div>
+                    <span class="text-xs px-3 py-1 bg-white border border-[#E5DFD3] rounded-full font-mono" id="modal-id"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contribute Info Modal -->
+    <div id="contribute-modal" onclick="if (event.target.id === 'contribute-modal') closeContributeModal()" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
+        <div onclick="event.stopImmediatePropagation()" class="bg-white max-w-lg w-full rounded-3xl p-8">
+            <h3 class="font-semibold text-2xl mb-4">How to Contribute</h3>
+            <div class="space-y-4 text-sm text-[#3F2A1E]">
+                <p>The easiest way to add information is to edit the <code class="bg-[#F5F0E6] px-1.5 py-0.5 rounded">js/data.js</code> file and open a Pull Request on GitHub.</p>
+                <p>You can also email verified details, photos, or documents to the project maintainer.</p>
+                
+                <div class="pt-4 border-t border-[#E5DFD3]">
+                    <div class="font-medium mb-2">What we especially need:</div>
+                    <ul class="list-disc pl-5 space-y-1 text-[#6B5B4F]">
+                        <li>Birth, marriage, and death records</li>
+                        <li>Old family photos with names and dates</li>
+                        <li>Stories and oral histories</li>
+                        <li>Locations and migration paths</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-8 flex justify-end">
+                <button onclick="closeContributeModal()" class="px-6 py-2.5 text-sm font-medium border border-[#4A3728] rounded-2xl hover:bg-[#F5F0E6]">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
